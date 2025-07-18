@@ -10,11 +10,13 @@ const port = 3000;
 
 //Get request
 app.get("/", (req, res) => {
-  res.send("This is a GET Request");
+  // res.send("This is a GET Request");
+  res.sendFile("/routing/dummy.html", { root: __dirname });
 });
 
 app.post("/items", (req, res) => {
-  res.send("This is a POST Request");
+  // res.send("This is a POST Request");
+  res.json({ name: "FAHAD", age: 24, city: "BANGALORE" });
 });
 
 app.put("/items/:id", (req, res) => {
