@@ -14,6 +14,7 @@ const reqlogger = (req, res, next) => {
 
 app.use(reqlogger); // Apply the custom middleware to all routes handled by the app
 // If we dont want to apply it to all the requests just remove this code line and then call it with the particaular request only as done below in one request
+// This is very useful when we want to create private nad public routes in our application
 
 app.get("/", (req, res) => {
   res.send("This is the main server and is a GET call"); // Responds to GET requests at the root URL
@@ -36,5 +37,20 @@ app.post("/api/users", (req, res) => {
 
   res.json({ Message: "Recieved the name from the request body" });
 });
+
+app.post("/api/company", (req, res) => {
+  throw new error("Something broke!");
+
+  res.json({ message: "This is the company route of the server" });
+}); // This route is for handling POST requests to /api/company and will throw an error to demonstrate error handling
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  res.status(500).json({ message: "Something went wrong" });
+}); // This is an error handling middleware that catches errors and sends a response with a 500 status code and a message indicating that something went wrong
+// This middleware should be defined after all other routes and middleware to catch any errors that occur in the application
+// It logs the error stack to the console and sends a JSON response with an error message
+// This is also a Global Middleware and gets applied to all routes handeled by the app
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`)); // This will log a message to the console when the server starts
