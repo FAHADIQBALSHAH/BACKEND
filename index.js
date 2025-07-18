@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 const app = express(); // Create an instance of express
 
@@ -6,6 +7,9 @@ const PORT = process.env.PORT || 4000; // Set the port to either the environment
 // Start the server and listen on the specified port
 
 app.use(express.json()); // 🔑 This line is required to parse JSON body // This is a Global Middleware and gets applied to all routes handeled by the app
+
+app.use(cors()); // This is a Third Party Middleware and gets applied to all routes handeled by the app
+// This line enables CORS (Cross-Origin Resource Sharing) for all routes, allowing requests from different origins but it can also be used for specific routes only
 
 const reqlogger = (req, res, next) => {
   console.log(`${req.method} ${req.url} ${new Date().toISOString()}`);
