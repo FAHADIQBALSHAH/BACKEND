@@ -12,7 +12,11 @@ app.use(cors()); // This is a Third Party Middleware and gets applied to all rou
 // This line enables CORS (Cross-Origin Resource Sharing) for all routes, allowing requests from different origins but it can also be used for specific routes only
 
 const reqlogger = (req, res, next) => {
-  console.log(`${req.method} ${req.url} ${new Date().toISOString()}`);
+  console.log(
+    `Method: ${req.method}
+     URL: ${req.url} 
+     TIMESTAMP: ${new Date().toISOString()}`
+  );
   next();
 }; // This is a custom middleware function that logs the request method, URL, and timestamp
 
